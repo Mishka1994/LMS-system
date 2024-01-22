@@ -6,11 +6,13 @@ from rest_framework.routers import DefaultRouter
 from studies.views.course import CourseViewSet
 from studies.views.lesson import LessonCreateView, LessonRetrieveView, LessonListView, LessonUpdateView, \
     LessonDeleteView
+from studies.views.payments import PaymentsViewSet
 
 app_name = StudiesConfig.name
 
 router = DefaultRouter()
 router.register(r'course', CourseViewSet, basename='course')
+router.register(r'payments', PaymentsViewSet, basename='payments')
 
 urlpatterns = [
 
