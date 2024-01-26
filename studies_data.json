@@ -1,0 +1,128 @@
+[
+  {
+    "model": "studies.course",
+    "pk": 1,
+    "fields": {
+      "title": "Курс по ЯП C/C++",
+      "preview": "",
+      "description": "Хороший курс про хороший язык программирования",
+      "course_author": 2
+    }
+  },
+  {
+    "model": "studies.course",
+    "pk": 2,
+    "fields": {
+      "title": "Курс Структуры данных",
+      "preview": "",
+      "description": "Изучаем как устроены данные",
+      "course_author": 3
+    }
+  },
+  {
+    "model": "studies.course",
+    "pk": 3,
+    "fields": {
+      "title": "Курс Алгоритмы и структуры данных на Python",
+      "preview": "",
+      "description": "Изучаем алгоритмы на Python",
+      "course_author": 3
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "Урок №1",
+      "description": "Первая программа на С++",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 1,
+      "lesson_author": 2
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 2,
+    "fields": {
+      "title": "Урок №2",
+      "description": "Ввод-вывод с помощью объектов cin и cout",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 1,
+      "lesson_author": 2
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 3,
+    "fields": {
+      "title": "Урок №3",
+      "description": "Пространства имен",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 1,
+      "lesson_author": 2
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 4,
+    "fields": {
+      "title": "Урок №1",
+      "description": "О большое (Big O) - верхняя оценка сложности алгоритма",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 2,
+      "lesson_author": 3
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 5,
+    "fields": {
+      "title": "Урок №2",
+      "description": "О большое (Big O) - случаи логарифмической и факториальной сложности",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 2,
+      "lesson_author": 3
+    }
+  },
+  {
+    "model": "studies.lesson",
+    "pk": 6,
+    "fields": {
+      "title": "Урок №1",
+      "description": "Алгоритм Кнута-Мориса-Пратта(КПМ алгоритм)",
+      "preview": "",
+      "link_to_video": null,
+      "from_course": 3,
+      "lesson_author": 3
+    }
+  },
+  {
+    "model": "studies.payments",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "lesson": null,
+      "user": "Иванов Иван",
+      "date_of_payment": "2024-01-21T12:41:31.087Z",
+      "payment_amount": 30000,
+      "payment_method": "TRANSFER"
+    }
+  },
+  {
+    "model": "studies.payments",
+    "pk": 2,
+    "fields": {
+      "course": null,
+      "lesson": 4,
+      "user": "Петрова Анна",
+      "date_of_payment": "2024-01-21T12:41:31.087Z",
+      "payment_amount": 1500,
+      "payment_method": "CASH"
+    }
+  }
+]

@@ -9,6 +9,7 @@ class Course(models.Model):
     title = models.CharField(max_length=150, verbose_name='Название курса')
     preview = models.ImageField(upload_to='course/', verbose_name='Превью курса', blank=True, null=True)
     description = models.TextField(verbose_name='Описание курса')
+    course_author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='course', verbose_name='Автор курса', **NULLABLE)
 
     def __str__(self):
         return self.title
@@ -25,6 +26,7 @@ class Lesson(models.Model):
     link_to_video = models.URLField(verbose_name='Ссылка на видео', blank=True, null=True)
     from_course = models.ForeignKey(Course, on_delete=models.PROTECT, verbose_name='ссылка на курс',
                                     related_name='course')
+    lesson_author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='lesson', verbose_name='Автор урока', **NULLABLE)
 
     def __str__(self):
         return self.title
@@ -46,8 +48,8 @@ class Payments(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок', **NULLABLE)
 
-    #user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
-    user = models.CharField(max_length=256, verbose_name='Пользователь')
+    #user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь', **NULLABLE)
+    user = models.CharField(max_length=100, verbose_name='Клиент', **NULLABLE)
     date_of_payment = models.DateTimeField(auto_now_add=True, verbose_name='Дата оплаты')
     payment_amount = models.PositiveIntegerField(verbose_name='Сумма оплаты', **NULLABLE)
     payment_method = models.CharField(max_length=100, choices=list_of_payment_method,
