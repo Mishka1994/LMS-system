@@ -14,20 +14,34 @@ class LessonCreateView(generics.CreateAPIView):
 
 class LessonRetrieveView(generics.RetrieveAPIView):
     serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated & (IsModerator | IsOwner)]
+    # queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Lesson.objects.all()
+        else:
+            author_id = self.request.user
+            return Lesson.objects.filter(lesson_author=author_id)
 
 
 class LessonListView(generics.ListAPIView):
     serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated & (IsModerator & IsOwner)]
+    # queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Lesson.objects.all()
+        else:
+            author_id = self.request.user
+            return Lesson.objects.filter(lesson_author=author_id)
 
 
 class LessonUpdateView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated & (IsModerator | IsOwner)]
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
 
 class LessonDeleteView(generics.DestroyAPIView):
