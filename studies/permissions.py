@@ -1,5 +1,7 @@
 from rest_framework.permissions import BasePermission
 
+from studies.models import Lesson, Course
+
 
 class IsModerator(BasePermission):
 
@@ -9,9 +11,9 @@ class IsModerator(BasePermission):
 
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
-        if obj.course_author:
+        if isinstance(obj, Course):
             return request.user == obj.course_author
 
-        elif obj.lesson_author:
+        elif isinstance(obj, Lesson):
             return request.user == obj.lesson_author
 
