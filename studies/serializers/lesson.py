@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from studies.models import Lesson
+from studies.validators import LinkValidator
 
 
 class LessonCountSerializer(serializers.ModelSerializer):
@@ -19,12 +20,15 @@ class LessonOfCourse(serializers.ModelSerializer):
 
     def get_lessons(self, obj):
         return None
+
     class Meta:
         model = Lesson
         fields = ('lessons',)
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    link_to_video = serializers.CharField(validators=[LinkValidator()])
+
     class Meta:
         model = Lesson
         fields = '__all__'
