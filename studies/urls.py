@@ -7,6 +7,7 @@ from studies.views.course import CourseViewSet
 from studies.views.lesson import LessonCreateView, LessonRetrieveView, LessonListView, LessonUpdateView, \
     LessonDeleteView
 from studies.views.payments import PaymentsViewSet
+from studies.views.subscription import SubscriptionCreateView, SubscriptionDeleteView
 
 app_name = StudiesConfig.name
 
@@ -15,11 +16,15 @@ router.register(r'course', CourseViewSet, basename='course')
 router.register(r'payments', PaymentsViewSet, basename='payments')
 
 urlpatterns = [
+    # Lesson
+    path('lesson/create/', LessonCreateView.as_view(), name='lesson-create'),
+    path('lesson/retrieve/<int:pk>/', LessonRetrieveView.as_view(), name='lesson-retrieve'),
+    path('lesson/list/', LessonListView.as_view(), name='lesson-list'),
+    path('lesson/update/<int:pk>/', LessonUpdateView.as_view(), name='lesson-update'),
+    path('lesson/delete/<int:pk>/', LessonDeleteView.as_view(), name='lesson-delete'),
 
-    path('lesson/create/', LessonCreateView.as_view(), name='create-lesson'),
-    path('lesson/retrieve/<int:pk>/', LessonRetrieveView.as_view(), name='retrieve-lesson'),
-    path('lesson/list/', LessonListView.as_view(), name='list-lesson'),
-    path('lesson/update/<int:pk>/', LessonUpdateView.as_view(), name='update-lesson'),
-    path('lesson/delete/<int:pk>/', LessonDeleteView.as_view(), name='delete-lesson')
+    # Subscription
+    path('subscription/create/', SubscriptionCreateView.as_view(), name='subscription-create'),
+    path('subscription/delete/<int:pk>/', SubscriptionDeleteView.as_view(), name='subscription-delete')
 
 ]+router.urls
