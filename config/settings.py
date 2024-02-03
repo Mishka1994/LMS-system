@@ -21,6 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-td-_(r$g0#c2g0om1&iz@4*#1u$#rl(mtp^vvhy-g5howhq)p$'
 
+# Secret key for Stripe API
+STRIPE_API_KEY = "sk_test_51OfG5oKrDWAtHF2LlT443zzfzO7XwO8nHsLQXtDjqmCnJLcgT6d5rz5sd3feKdQP4hKvWTwkx3qFZ6FWj4z6rN4P00sm37fQD3"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -35,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_yasg',
+    'corsheaders',
 
     'users',
     'studies',
@@ -52,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -142,3 +149,25 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "https://read-only.example.com",
+    "https://read-and-write.example.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+LIST_PRODUCT_ID = {
+    1: {"product_id": "prod_PUMa61Z3MLxWGm",
+        "price_id": "price_1OfNrVKrDWAtHF2LnYaKfZEE"},
+    2: {"product_id": "prod_PUMavZfKSSGrGy",
+        "price_id": "price_1OfNrWKrDWAtHF2L7csdPb3a"},
+    3: {"product_id": "prod_PUMaoMwQQ5qlSp",
+        "price_id": "price_1OfNrXKrDWAtHF2LbFC9XcL4"}
+}
+# FIRST_PRODUCT_ID = "prod_PUMa61Z3MLxWGm"
+# SECOND_PRODUCT_ID = "prod_PUMavZfKSSGrGy"
+# THIRD_PRODUCT_ID = "prod_PUMaoMwQQ5qlSp"

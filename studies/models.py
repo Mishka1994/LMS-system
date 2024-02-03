@@ -12,6 +12,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name='Описание курса')
     course_author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='course',
                                       verbose_name='Автор курса', **NULLABLE)
+    amount = models.PositiveIntegerField(default=100, verbose_name='стоимость')
 
     def __str__(self):
         return self.title
@@ -57,6 +58,8 @@ class Payments(models.Model):
     payment_amount = models.PositiveIntegerField(verbose_name='Сумма оплаты', **NULLABLE)
     payment_method = models.CharField(max_length=100, choices=list_of_payment_method,
                                       verbose_name='Способ оплаты', **NULLABLE)
+    is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
+    session_id = models.TextField(verbose_name='Идентификатор сессии', **NULLABLE)
 
     def __str__(self):
         return (f'{self.user} ({self.payment_amount}, {self.payment_method}) - /'
