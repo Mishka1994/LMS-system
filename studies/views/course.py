@@ -2,10 +2,11 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from studies.models import Course
+from studies.models import Course, Subscription
 from studies.paginators.course import CoursePaginator
 from studies.permissions import IsModerator, IsOwner
 from studies.serializers.course import CourseSerializer
+from studies.tasks import sending_notification
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -31,3 +32,15 @@ class CourseViewSet(viewsets.ModelViewSet):
     #     else:
     #         id_author = self.request.user
     #         return Course.objects.filter(course_author=id_author)
+
+    def update(self, request, *args, **kwargs):
+        course = Course.objects.get(pk=kwargs['pk'])
+
+        list_of_subscription_users = Subscription.objects.filter(course=course)
+        list_users_telegram_id = [item.user.telegram_id for item in list_of_subscription_users if item.user.telegram_id]
+        sending_notification(list_id=list_users_telegram_id)
+
+        return Response({'result': 'Изменения внесены'})
+
+
+
