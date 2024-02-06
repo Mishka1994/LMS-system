@@ -14,5 +14,8 @@ class User(AbstractUser):
     city = models.CharField(max_length=256, verbose_name='Город', **NULLABLE)
     avatar = models.ImageField(upload_to='course/', verbose_name='Аватарка', **NULLABLE)
 
+    telegram_id = models.CharField(verbose_name='Телеграм_id', **NULLABLE)
+    last_login = models.DateTimeField(verbose_name='Дата последней активности', **NULLABLE)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

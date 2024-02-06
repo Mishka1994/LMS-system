@@ -24,6 +24,10 @@ SECRET_KEY = 'django-insecure-td-_(r$g0#c2g0om1&iz@4*#1u$#rl(mtp^vvhy-g5howhq)p$
 # Secret key for Stripe API
 STRIPE_API_KEY = "sk_test_51OfG5oKrDWAtHF2LlT443zzfzO7XwO8nHsLQXtDjqmCnJLcgT6d5rz5sd3feKdQP4hKvWTwkx3qFZ6FWj4z6rN4P00sm37fQD3"
 
+# Token_of_telegram_bot
+TELEGRAM_BOT_TOKEN = '6494537171:AAHr6lmxWSivP1WfSkD43WvD4HjGi9mId8E'
+URL_FOR_TELEGRAM = 'https://api.telegram.org/bot'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -44,6 +48,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
+
 
     'users',
     'studies',
@@ -168,6 +174,20 @@ LIST_PRODUCT_ID = {
     3: {"product_id": "prod_PUMaoMwQQ5qlSp",
         "price_id": "price_1OfNrXKrDWAtHF2LbFC9XcL4"}
 }
-# FIRST_PRODUCT_ID = "prod_PUMa61Z3MLxWGm"
-# SECOND_PRODUCT_ID = "prod_PUMavZfKSSGrGy"
-# THIRD_PRODUCT_ID = "prod_PUMaoMwQQ5qlSp"
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
+CELERY_BEAT_SCHEDULE = {
+    'checking_users_activity': {
+        'task': 'checking_users_activity',
+        'schedule': timedelta(minutes=1)
+    },
+}
+
+
+MIDDLEWARE_CLASSES =[
+    'studies.tasks.CheckLastVisitMiddleware'
+]
