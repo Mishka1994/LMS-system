@@ -31,7 +31,6 @@ def sending_notification(list_id):
 
 @shared_task(name='checking_users_activity')
 def checking_users_activity():
-    print('Check Function')
     max_inactive_period = (datetime.today() - timedelta(30)).date()
     users = User.objects.all()
     for user in users:
