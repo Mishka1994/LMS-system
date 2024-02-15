@@ -9,11 +9,15 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
+import os
 from datetime import timedelta
 from pathlib import Path
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -22,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-td-_(r$g0#c2g0om1&iz@4*#1u$#rl(mtp^vvhy-g5howhq)p$'
 
 # Secret key for Stripe API
-STRIPE_API_KEY = "sk_test_51OfG5oKrDWAtHF2LlT443zzfzO7XwO8nHsLQXtDjqmCnJLcgT6d5rz5sd3feKdQP4hKvWTwkx3qFZ6FWj4z6rN4P00sm37fQD3"
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
 
 # Token_of_telegram_bot
-TELEGRAM_BOT_TOKEN = '6494537171:AAHr6lmxWSivP1WfSkD43WvD4HjGi9mId8E'
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 URL_FOR_TELEGRAM = 'https://api.telegram.org/bot'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -188,6 +192,6 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 
-MIDDLEWARE_CLASSES =[
+MIDDLEWARE_CLASSES = [
     'studies.tasks.CheckLastVisitMiddleware'
 ]

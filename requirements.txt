@@ -41,6 +41,7 @@ Pygments==2.17.2
 PyJWT==2.8.0
 python-crontab==3.0.0
 python-dateutil==2.8.2
+python-dotenv==1.0.1
 pytz==2023.3.post1
 PyYAML==6.0.1
 redis==5.0.1
