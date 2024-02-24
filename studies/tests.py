@@ -123,6 +123,7 @@ class LessonTestCase(APITestCase):
             response.status_code,
             status.HTTP_200_OK
         )
+
         self.lesson.refresh_from_db()
 
         self.assertEqual(
