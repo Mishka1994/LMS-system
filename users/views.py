@@ -6,5 +6,6 @@ from users.serializers import UserSerializer
 
 
 class UserListView(ListAPIView):
+    """Get list of Users"""
     serializer_class = UserSerializer
     queryset = User.objects.all()

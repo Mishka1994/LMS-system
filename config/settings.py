@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-td-_(r$g0#c2g0om1&iz@4*#1u$#rl(mtp^vvhy-g5howhq)p$'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Secret key for Stripe API
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')

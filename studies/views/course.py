@@ -14,24 +14,24 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     pagination_class = CoursePaginator
 
-    # def get_permissions(self):
-    #     if self.action == 'create':
-    #         permission_classes = [IsAuthenticated, ~IsModerator]
-    #     elif self.action == 'retrieve' or self.action == 'list' or self.action == 'update':
-    #         permission_classes = [IsAuthenticated, IsModerator | IsOwner]
-    #     elif self.action == 'destroy':
-    #         permission_classes = [IsAuthenticated & IsOwner]
-    #
-    #     return [permission() for permission in permission_classes]
+    def get_permissions(self):
+        if self.action == 'create':
+            permission_classes = [IsAuthenticated, ~IsModerator]
+        elif self.action == 'retrieve' or self.action == 'list' or self.action == 'update':
+            permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        elif self.action == 'destroy':
+            permission_classes = [IsAuthenticated & IsOwner]
 
-    # def get_queryset(self):
-    #     # Если пользователь модератор, выводим все курсы
-    #     if self.request.user.is_staff:
-    #         return Course.objects.all()
-    #     # Иначе фильтруем по принадлежности автору
-    #     else:
-    #         id_author = self.request.user
-    #         return Course.objects.filter(course_author=id_author)
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        # Если пользователь модератор, выводим все курсы
+        if self.request.user.is_staff:
+            return Course.objects.all()
+        # Иначе фильтруем по принадлежности автору
+        else:
+            id_author = self.request.user
+            return Course.objects.filter(course_author=id_author)
 
     def update(self, request, *args, **kwargs):
         course = Course.objects.get(pk=kwargs['pk'])
@@ -41,6 +41,3 @@ class CourseViewSet(viewsets.ModelViewSet):
         sending_notification(list_id=list_users_telegram_id)
 
         return Response({'result': 'Изменения внесены'})
-
-
-

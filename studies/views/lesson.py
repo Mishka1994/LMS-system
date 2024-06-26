@@ -10,6 +10,7 @@ from studies.tasks import sending_notification
 
 
 class LessonCreateView(generics.CreateAPIView):
+    """View for create lesson"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
@@ -25,6 +26,7 @@ class LessonCreateView(generics.CreateAPIView):
 
 
 class LessonRetrieveView(generics.RetrieveAPIView):
+    """View one lesson"""
     serializer_class = LessonSerializer
     # queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
@@ -47,6 +49,7 @@ class LessonRetrieveView(generics.RetrieveAPIView):
 
 
 class LessonListView(generics.ListAPIView):
+    """View for get list of lesson"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     pagination_class = LessonPaginator
@@ -62,11 +65,12 @@ class LessonListView(generics.ListAPIView):
 
 
 class LessonUpdateView(generics.UpdateAPIView):
+    """View for get list of lesson"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
 
-    # permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
     def update(self, request, *args, **kwargs):
         # Из урока получаем экземпляр курса
@@ -85,6 +89,7 @@ class LessonUpdateView(generics.UpdateAPIView):
 
 
 class LessonDeleteView(generics.DestroyAPIView):
+    """View for delete lesson"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
